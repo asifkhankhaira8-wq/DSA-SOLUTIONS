@@ -3,7 +3,6 @@ public:
     int numberOfSubstrings(string s) {
       int n=s.size();
       int left=0;
-      int right=0;
       int cnt=0;
       int freq[3]={0};
       for(int i=0;i<n;i++){
