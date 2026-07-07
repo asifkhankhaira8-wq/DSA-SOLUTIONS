@@ -2,6 +2,7 @@ class Solution {
 public:
 void fun(int i,int k,vector<int>& nums,vector<int>temp,vector<vector<int>>&ans){
     int n=nums.size();
+    if(k < 0) return;
     if(i==n){
       if(k==0){
         ans.push_back(temp);
