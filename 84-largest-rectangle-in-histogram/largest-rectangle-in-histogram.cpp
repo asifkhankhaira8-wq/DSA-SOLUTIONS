@@ -1,42 +1,26 @@
 class Solution {
 public:
-vector<int> nextSmallerElement(vector<int>& height){
-    int n=height.size();
+int largestRectangleArea(vector<int>& heights) {
+    int n=heights.size();
     stack<int>st;
-    vector<int>ans(n);
-      for(int i=n-1;i>=0;i--){
-        while(!st.empty() && height[st.top()]>=height[i]){
-            st.pop();
-        }
-        ans[i] = st.empty() ? n : st.top();
-        st.push(i);
-      }
-      return ans;
-}
-vector<int> previousSmallerElement(vector<int>& height){
-    int n=height.size();
-    stack<int>st;
-    vector<int>ans(n);
+    int maxi=0;
       for(int i=0;i<n;i++){
-        while(!st.empty() && height[st.top()]>=height[i]){
-            st.pop();
+        while(!st.empty() && heights[st.top()]>=heights[i]){
+            int nse=i;
+            int idx=st.top();st.pop();
+            int pse=st.empty() ? -1 : st.top();
+            maxi=max(maxi,(nse-pse-1)*heights[idx]);
         }
-       ans[i] = st.empty() ? -1 : st.top();
         st.push(i);
       }
-      return ans;
-}
-    int largestRectangleArea(vector<int>& heights) {
-        vector<int>NSE=nextSmallerElement(heights);
-        vector<int>PSE=previousSmallerElement(heights);
-        int ans=0;
-        int n=heights.size();
-        for(int i=0;i<n;i++){
-            int left=NSE[i]-i;
-            int right=i-PSE[i];
-            ans=max(ans,(left+right-1)*heights[i]);
+        while (!st.empty()) {
+            int idx=st.top();
+            st.pop();
+            int nse=n;
+            int pse=st.empty()?-1:st.top();
+            maxi = max(maxi, heights[idx] * (nse - pse - 1));
         }
-        return ans;
+       return maxi;
         
     }
 };
