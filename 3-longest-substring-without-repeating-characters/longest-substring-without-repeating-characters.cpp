@@ -6,15 +6,14 @@ public:
         int left = 0;
         int maxi=0;
         for (int i = 0; i < s.size(); i++) {
-            while (mp[s[i]]>0) {
-                mp[s[left]]--;
-                left++;
-            }
-            mp[s[i]]++;
-                maxi = max(maxi, i-left);
+           if(mp.count(s[i])){
+             left=max(left,mp[s[i]]+1);
+           }
+           mp[s[i]]=i;
+                maxi = max(maxi, i-left+1);
         }
 
-        return maxi+1;
+        return maxi;
         
     }
 };
