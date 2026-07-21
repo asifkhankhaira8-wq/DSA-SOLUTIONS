@@ -9,11 +9,11 @@ public:
         for(int right=0;right<n;right++){
            mp[s[right]]++;
            sz=max(sz,mp[s[right]]);
-           while(((right-left+1)-sz)>k){
+           if(((right-left+1)-sz)>k){
             mp[s[left]]--;
             left++;
            }
-           maxi=max(maxi,right-left+1);
+           else maxi=max(maxi,right-left+1);
         }
         return maxi;
     }
