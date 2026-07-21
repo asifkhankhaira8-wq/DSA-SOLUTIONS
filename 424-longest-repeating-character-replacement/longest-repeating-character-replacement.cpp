@@ -9,11 +9,8 @@ public:
         for(int right=0;right<n;right++){
            mp[s[right]]++;
            sz=max(sz,mp[s[right]]);
-           while(mp.size()>k+1 || ((right-left+1)-sz)>k){
+           while(((right-left+1)-sz)>k){
             mp[s[left]]--;
-            if(mp[s[left]]==0) {
-                mp.erase(s[left]);
-            }
             left++;
            }
            maxi=max(maxi,right-left+1);
