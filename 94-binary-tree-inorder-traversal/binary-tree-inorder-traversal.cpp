@@ -21,8 +21,22 @@ public:
         Inorder(root->right,ans);
      }
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int>ans;
-        Inorder(root,ans);
-        return ans;
+        vector<int>Inorder;
+        stack<TreeNode*>st;
+        while(true){
+            if(root!=NULL){
+                st.push(root);
+                root=root->left;
+            }
+            else{
+               if(st.empty()) break;
+               TreeNode* top=st.top();
+               st.pop();
+               Inorder.push_back(top->val);
+               root=top->right;
+            }
+           
+        }
+        return Inorder;
     }
 };
