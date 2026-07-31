@@ -18,16 +18,16 @@ public:
        q.push(root); 
        bool b=false;
        while(!q.empty()){
-        vector<int>temp;
         int size=q.size();
+        vector<int>temp(size);
         for(int i=0;i<size;i++){
             TreeNode* top=q.front();
             q.pop();
-            temp.push_back(top->val);
+            if(b) temp[size-i-1]=top->val;
+            else temp[i]=top->val;
             if(top->left) q.push(top->left);
             if(top->right) q.push(top->right);
         }
-        if(b) reverse(temp.begin(),temp.end());
         b=!b;
         ans.push_back(temp);
        }
