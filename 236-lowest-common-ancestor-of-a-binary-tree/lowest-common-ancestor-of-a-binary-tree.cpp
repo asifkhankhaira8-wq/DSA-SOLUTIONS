@@ -20,6 +20,7 @@ bool fun(TreeNode* root,TreeNode* p,TreeNode* q){
     bool right=fun(root->right,p,q);
     if((left && right) || (left && itself) || (right && itself)){
         ans=root;
+        return true;
     }
     return right || left || itself;
 }
