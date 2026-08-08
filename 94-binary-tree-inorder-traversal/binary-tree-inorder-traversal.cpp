@@ -10,33 +10,32 @@
  * };
  */
 class Solution {
-public:
-     void Inorder(TreeNode* root,vector<int> &ans){
-        if(root==NULL){
-            return ;
-        }
-         int temp=root->val;
-        Inorder(root->left,ans);
-        ans.push_back(temp);
-        Inorder(root->right,ans);
-     }
+public:// codin morris inorder traversal
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int>Inorder;
-        stack<TreeNode*>st;
-        while(true){
-            if(root!=NULL){
-                st.push(root);
-                root=root->left;
-            }
-            else{
-               if(st.empty()) break;
-               TreeNode* top=st.top();
-               st.pop();
-               Inorder.push_back(top->val);
-               root=top->right;
-            }
-           
+        vector<int>inorder;
+        TreeNode* curr=root;
+        while(curr!=NULL){
+         if(curr->left==NULL){
+              inorder.push_back(curr->val);
+              curr=curr->right;
+         }
+         else{
+               TreeNode* prev=curr->left;
+               while(prev->right && prev->right!=curr){
+                   prev=prev->right;
+               }
+               if(prev->right==NULL){
+                prev->right=curr;
+                curr=curr->left;
+               }
+               else{
+                   prev->right=NULL;
+                   inorder.push_back(curr->val);
+                   curr=curr->right;
+               }
+
+         }
         }
-        return Inorder;
+        return inorder ;
     }
 };
