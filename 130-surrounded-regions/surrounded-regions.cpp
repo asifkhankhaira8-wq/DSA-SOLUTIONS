@@ -4,7 +4,6 @@ public:
         int m=board.size();
         int n=board[0].size();
         queue<pair<int,int>>q;
-        vector<vector<bool>>vis(m,vector<bool>(n,false));
         for(int i=0;i<m;i++){
             if(board[i][0]=='O'){
              board[i][0]='#';
