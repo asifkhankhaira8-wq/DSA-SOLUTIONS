@@ -10,15 +10,7 @@ public:
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(mat[i][j]==0){
-                    for(int k=0;k<4;k++){
-                      int nx=i+dx[k];
-                      int ny=j+dy[k];
-                      if(nx<m && nx>=0 && ny<n && ny>=0 && mat[nx][ny]==1 && !vis[nx][ny]){
-                        vis[nx][ny]=true;
-                        q.push({nx,ny});
-
-                      }
-                    }
+                   q.push({i,j});
                 }
             }
         }
