@@ -1,11 +1,12 @@
 class Solution {
 public:
 vector<vector<string>>ans;
-void dfs(int steps,string endWord,vector<string>vec,unordered_map<string ,int>&mp){
-     vec.push_back(endWord);
-     if(steps==0){
+string b;
+void dfs(int steps,string endWord,vector<string>&vec,unordered_map<string ,int>&mp){
+     if(endWord==b){
         reverse(vec.begin(),vec.end());
         ans.push_back(vec);
+        reverse(vec.begin(),vec.end());
         return ;
      }
 
@@ -13,8 +14,10 @@ void dfs(int steps,string endWord,vector<string>vec,unordered_map<string ,int>&m
         string og=endWord;
         for(char ch='a';ch<='z';ch++){
             endWord[i]=ch;
-            if(mp[endWord]==steps){
+            if(mp.find(endWord) != mp.end() && mp[endWord] == steps){
+                 vec.push_back(endWord);
                 dfs(steps-1,endWord,vec,mp);
+                vec.pop_back();
             }
         }
         endWord=og;
@@ -23,7 +26,7 @@ void dfs(int steps,string endWord,vector<string>vec,unordered_map<string ,int>&m
 
 }
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
-      
+        b=beginWord;
         queue<pair<string , int>>q;
         unordered_map<string ,int>mp;
         q.push({beginWord,1});
@@ -35,7 +38,9 @@ void dfs(int steps,string endWord,vector<string>vec,unordered_map<string ,int>&m
                int step=q.front().second;
                q.pop();
                if(word==endWord) {
-                dfs(step-1,endWord,{},mp);
+                vector<string>seq;
+                seq.push_back(endWord);
+                dfs(step-1,endWord,seq,mp);
                 return ans;
                 }
                for(int i=0;i<word.size();i++){
