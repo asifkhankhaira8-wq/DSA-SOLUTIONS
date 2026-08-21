@@ -1,20 +1,5 @@
 class Solution {
 public:
-bool dfs(int node, vector<vector<int>>&adj,vector<int>&vis,vector<int>&pathVis){
-    vis[node]=1;
-    pathVis[node]=1;
-    for(auto it : adj[node]){
-        if(!vis[it]){
-            if(dfs(it,adj,vis,pathVis)){
-                return true;
-            }}
-            else if( pathVis[it]){
-                   return true;
-            }
-    }
-    pathVis[node]=0;
-    return false;
-}
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<vector<int>>adj(numCourses);
         for(int i=0;i<prerequisites.size();i++){
@@ -22,14 +7,26 @@ bool dfs(int node, vector<vector<int>>&adj,vector<int>&vis,vector<int>&pathVis){
             int v=prerequisites[i][1];
             adj[v].push_back(u);
         }
-        const int n=numCourses;
-      vector<int> pathVis(n,0);
-       vector<int> vis(n,0);
+        vector<int>indegree(numCourses);
+        queue<int>q;
         for(int i=0;i<numCourses;i++){
-           if(!vis[i]){
-            if(dfs(i,adj,vis,pathVis)) return false;
-           }
+            for(int it:adj[i]){
+                indegree[it]++;
+            }
         }
-        return true;
+        for(int i=0;i<numCourses;i++){
+            if(indegree[i]==0) q.push(i);
+        }
+        vector<int>ans;
+        while(!q.empty()){
+         int top=q.front();
+         q.pop();
+            ans.push_back(top);
+            for(int it:adj[top]){
+                indegree[it]--;
+                if(indegree[it]==0) q.push(it);
+            }
+        }
+        return ans.size()==numCourses;
     }
 };
