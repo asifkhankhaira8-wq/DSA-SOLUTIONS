@@ -42,17 +42,23 @@ public:
         int m=connections.size();
         if(m<n-1) return -1;
          DisjointSet ds(n);
-
+         int extraEdges=0;
          for(auto it:connections){
-             ds.unionBySize(it[0],it[1]);
+            int u=it[0];
+            int v=it[1];
+            if(ds.findUPar(u)==ds.findUPar(v)){
+                extraEdges++;
+            }
+            else  ds.unionBySize(it[0],it[1]);
          }
-
-        vector<int>parent=ds.parent;
-        set<int>st;
-        for(int i=0;i<n;i++){
-            st.insert(ds.findUPar(i));
-
+       int components = 0;
+        for (int i=0;i<n; i++) {
+            if(ds.findUPar(i)==i)
+                components++;
         }
-        return st.size()-1;
+        if(extraEdges>=components-1)
+            return components-1;
+
+        return -1;
     }
 };
