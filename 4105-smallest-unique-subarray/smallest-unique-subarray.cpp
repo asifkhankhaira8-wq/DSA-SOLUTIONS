@@ -1,7 +1,7 @@
 class Solution {
 public:
   const long long MOD = 1000000007;
-  const long long BASE = 100003;
+  const long long BASE = 10;
  bool fun(int k,vector<int>& nums){
      unordered_map<long long,int>mp;
      int n = nums.size();
