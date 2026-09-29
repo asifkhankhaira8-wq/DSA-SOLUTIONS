@@ -10,9 +10,9 @@ public:
             for(int i=0;i<n;i++){
                  int a=nums[i]%k;
                   if(i%2==0) {
-                 sum+=min((a+(k-x))%k,(x-a+k)%k);
+                 sum+=min((((a-x)%k+k)%k),(((x-a)%k+k)%k));
                   }
-                  else sum+=min((a+(k-y))%k,(y-a+k)%k); 
+                  else sum+=min((((a-y)%k+k)%k),(((y-a)%k+k)%k)); 
             }
             mini=min(mini,sum);
         }
