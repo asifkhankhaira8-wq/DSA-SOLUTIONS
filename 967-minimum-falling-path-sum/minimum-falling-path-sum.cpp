@@ -23,7 +23,22 @@ int fun(int i,int j,vector<vector<int>>& matrix,vector<vector<int>>&dp){
 }
     int minFallingPathSum(vector<vector<int>>& matrix) {
         int n=matrix.size();
-        vector<vector<int>>dp(n,vector<int>(n+1,1e9));
-        return fun(n-1,n,matrix,dp);
+        vector<vector<int>>dp(n,vector<int>(n,1e9));
+       // return fun(n-1,n,matrix,dp);
+        for(int i=0;i<n;i++) dp[0][i]=matrix[0][i];
+        for(int i=1;i<n;i++){
+            for(int j=0;j<n;j++){
+                 int left=1e9;
+                 int right=1e9;
+                 int bottom=1e9;
+                 int mini=1e9;
+                  bottom=matrix[i][j]+dp[i-1][j];
+                 if(j>0) left=matrix[i][j]+dp[i-1][j-1];
+                 if(j<n-1) right=matrix[i][j]+dp[i-1][j+1];
+                 mini=min(mini,min(left,min(right,bottom)));
+                 dp[i][j]=mini;
+            }
+        }
+        return *min_element(dp[n-1].begin(),dp[n-1].end());
     }
 };
