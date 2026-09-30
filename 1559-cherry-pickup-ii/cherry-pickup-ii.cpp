@@ -39,10 +39,11 @@ int fun(int row,int i,int j,vector<vector<int>>& grid ,vector<vector<vector<int>
                 else maxi=max(maxi,grid[n-1][i]+grid[n-1][j]+fun(n-2,i,j,grid,dp));
         }
         }*/
-    vector<vector<vector<int>>> dp(n,vector<vector<int>>(m, vector<int>(m, -1e9)));
-
-        dp[0][0][m-1]=grid[0][0]+grid[0][m-1];
+   // vector<vector<vector<int>>> dp(n,vector<vector<int>>(m, vector<int>(m, -1e9)));
+         vector<vector<int>>prev(m,vector<int>(m,-1e9));
+        prev[0][m-1]=grid[0][0]+grid[0][m-1];
         for(int row=1;row<n;row++){
+           vector<vector<int>>curr(m,vector<int>(m,-1e9));
             for(int i=0;i<m;i++){
                 for(int j=0;j<m;j++){
                    int maxi=INT_MIN;
@@ -50,18 +51,19 @@ int fun(int row,int i,int j,vector<vector<int>>& grid ,vector<vector<vector<int>
         int ni=i+dx[k];
         int nj=j+dy[k];
            if(valid(ni,nj,m)){
-             if(i==j) maxi=max(maxi,grid[row][j]+dp[row-1][ni][nj]);
-             else maxi=max(maxi,grid[row][i]+grid[row][j]+dp[row-1][ni][nj]);
+             if(i==j) maxi=max(maxi,grid[row][j]+prev[ni][nj]);
+             else maxi=max(maxi,grid[row][i]+grid[row][j]+prev[ni][nj]);
              }
             }
-       dp[row][i][j]=maxi;
+       curr[i][j]=maxi;
                 }
             }
+                prev=curr;
         }
        int maxi=-1e9;
        for(int i=0;i<m;i++){
         for(int j=0;j<m;j++){
-          maxi=max(maxi,dp[n-1][i][j]);
+          maxi=max(maxi,prev[i][j]);
        }
        }
        return maxi;
