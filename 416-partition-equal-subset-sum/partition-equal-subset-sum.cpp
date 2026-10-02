@@ -8,17 +8,20 @@ public:
         }
         if(target%2) return false;
         target/=2;
-       vector<vector<bool>>dp(n,vector<bool>(target+1,0));
-      if(nums[0]<=target) dp[0][nums[0]]=true;
-        dp[0][0]=true;
+     //  vector<vector<bool>>dp(n,vector<bool>(target+1,0));
+      vector<bool>prev(target+1,0);
+      if(nums[0]<=target) prev[nums[0]]=true;
+        prev[0]=true;
      for(int i=1;i<n;i++){
+        vector<bool>curr(target+1,false);
         for(int k=0;k<=target;k++){
-            bool notTake=dp[i-1][k];
+            bool notTake=prev[k];
             bool take=false;
-            if(nums[i]<=k) take=dp[i-1][k-nums[i]];
-            dp[i][k]=notTake || take;
+            if(nums[i]<=k) take=prev[k-nums[i]];
+            curr[k]=notTake || take;
         }
+        prev=curr;
      }    
-     return dp[n-1][target];
+     return prev[target];
     }
 };
