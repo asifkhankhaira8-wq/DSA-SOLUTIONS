@@ -15,7 +15,22 @@ int fun(int i,int k,vector<int>&nums,vector<vector<int>>&dp){
 }
     int change(int amount, vector<int>& coins) {
       int n=coins.size();
-      vector<vector<int>>dp(n,vector<int>(amount+1,-1));
-      return fun(n-1,amount,coins,dp);
+       vector<vector<unsigned long long>> dp(n, vector<unsigned long long>(amount + 1, 0));
+     if(coins[0]<=amount){
+        for(int i=0;i<=amount;i++){
+            if(i%coins[0]==0) dp[0][i]=1;
+          }
+       }
+      for(int i=0;i<n;i++) dp[i][0]=1;
+     for(int i=1;i<n;i++){
+        for(int k=1;k<=amount;k++){
+      unsigned long long notTake = dp[i-1][k];
+
+            unsigned long long take = 0;
+      if(coins[i]<=k) take=dp[i][k-coins[i]];
+       dp[i][k]= take+notTake;
+        }
+     }
+     return dp[n-1][amount];
     }
 };
