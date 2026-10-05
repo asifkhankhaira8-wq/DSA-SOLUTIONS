@@ -18,7 +18,7 @@ int fun(int i,int j,vector<int>&nums, vector<vector<int>>&dp){
 }
     int lengthOfLIS(vector<int>& nums) {
         int n=nums.size();
-        vector<vector<int>>dp(n,vector<int>(n+1,0));
+       // vector<vector<int>>dp(n,vector<int>(n+1,0));
         vector<int>prev(n+1,0);
         //return fun(n-1,n,nums,dp);
          prev[n]=1;
