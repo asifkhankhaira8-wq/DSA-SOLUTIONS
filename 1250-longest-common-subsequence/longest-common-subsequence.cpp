@@ -6,9 +6,9 @@ int fun(int i,int j,string &text1,string &text2,vector<vector<int>>&dp){
   int same=0;
   int maxi=0;
   if(text1[i]==text2[j]) same=1+fun(i-1,j-1,text1,text2,dp);
-  maxi=max(maxi,fun(i-1,j,text1,text2,dp));
+ else { maxi=max(maxi,fun(i-1,j,text1,text2,dp));
   maxi=max(maxi,fun(i,j-1,text1,text2,dp));
-
+ }
   return dp[i][j]=max(same,maxi);
 
 
