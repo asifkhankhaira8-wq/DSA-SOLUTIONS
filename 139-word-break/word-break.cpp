@@ -1,25 +1,22 @@
 class Solution {
 public:
-bool contains(vector<string>& wordDict,string temp){
-    for(string s:wordDict){
-        if(s==temp) return true;
+bool wordBreak(string s, vector<string>& wordDict) {
+int n = s.size();
+ unordered_set<string> dict(wordDict.begin(), wordDict.end());
+    vector<bool> dp(n + 1, false);
+    dp[n] = true;
+    for (int idx = n - 1; idx >= 0; idx--) {
+        string temp = "";
+        for (int i = idx; i < n; i++) {
+            temp += s[i];
+            if (dict.count(temp) && dp[i + 1]) {
+                dp[idx] = true;
+                break;
+            }
+        }
     }
-    return false;
-}
-bool fun(int idx,string s,vector<string>& wordDict,vector<int>&dp){
-   if(idx==s.size()) return true;
-   if(dp[idx]!=-1) return dp[idx];
-   string temp="";
-   for(int i=idx;i<s.size();i++){
-      temp+=s[i];
-      if(contains(wordDict,temp) && fun(i+1,s,wordDict,dp))       return dp[idx]=true;
-     }
-   return dp[idx]=false;
-}
-    bool wordBreak(string s, vector<string>& wordDict) {
-      int n=s.size();
-      vector<int>dp(n,-1);
-      return fun(0,s,wordDict,dp);
 
-    }
+    return dp[0];
+}
+
 };
