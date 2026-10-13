@@ -23,7 +23,19 @@ int fun(int i,string &s,vector<int>&dp){
 }
     int minCut(string s) {
         int n=s.size();
-        vector<int>dp(n,-1);
-        return fun(0,s,dp)-1;        
+        vector<int>dp(n+1,0);
+       // return fun(0,s,dp)-1;
+        for(int i=n-1;i>=0;i--){
+      int mini=INT_MAX;
+      for(int k=i;k<n;k++){
+        if(isPalindrome(i,k,s)){
+        int val=1+dp[k+1];
+        mini=min(val,mini);
+       }
+    }
+          dp[i]=mini;
+
+        }   
+        return dp[0]-1;     
     }
 };
