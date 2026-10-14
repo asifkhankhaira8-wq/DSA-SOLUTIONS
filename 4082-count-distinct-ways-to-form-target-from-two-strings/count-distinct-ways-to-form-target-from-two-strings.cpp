@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int mod=1e9+7,dp[101][101][101];
+    int mod=1e9+7;
+    vector<vector<vector<int>>>dp;
     string a,b,t;
     int dfs(int i,int j,int k){
         if(k==t.size())return i&&j;
@@ -19,7 +20,7 @@ public:
         a=word1;
         b=word2;
         t=target;
-        memset(dp,-1,sizeof(dp));
+        dp.assign(a.size()+1,vector<vector<int>>(b.size()+1,vector<int>(t.size()+1,-1)));
         return dfs(0,0,0);
     }
 };
