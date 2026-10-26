@@ -2,10 +2,6 @@ class Solution {
 public:
 vector<vector<int>>dp;
 int fun(int i,int d,vector<int>&nums){
-    if(i==0){
-        if(d==1) return nums[0];
-         return 1e9;
-    }
     if(d==1){
         return *max_element(nums.begin(),nums.begin()+i+1);
     }
