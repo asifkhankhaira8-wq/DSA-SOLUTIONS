@@ -2,7 +2,7 @@ class Solution {
 public:
     bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
         vector<vector<int>>adj(n+1);
-        for(auto it:dislikes){
+        for( const auto& it:dislikes){
                int u=it[0];
                int v=it[1];
                adj[u].push_back(v);
