@@ -32,7 +32,30 @@ int fun(int i,int j){
 
 }
     int numTilings(int n) {
-        dp.assign(n,vector<int>(3,-1));
-        return fun(n-1,0);
+        dp.assign(n+1,vector<int>(3,0));
+        dp[0][0]=1;
+        dp[1][0]=1;
+        for(int i=2;i<=n;i++){
+        for(int j=0;j<3;j++){
+                 int ans=0;
+        if(j==0){
+        if(i>=1) ans=(ans+dp[i-2][0])%MOD;
+         ans=(ans+dp[i-1][0])%MOD;
+         ans=(ans+dp[i-1][1])%MOD;
+         ans=(ans+dp[i-1][2])%MOD;
+            
+       }
+       else if(j==1){
+         ans=(ans+dp[i-1][2])%MOD;
+         ans=(ans+dp[i-2][0])%MOD;
+      } 
+       else if(j==2){
+          ans=(ans+dp[i-1][1])%MOD;
+          ans=(ans+dp[i-2][0])%MOD;
+      }
+        dp[i][j]=ans%MOD;
+            }
+        }
+        return dp[n][0];
     }
 };
