@@ -4,15 +4,12 @@ public:
         int maxi=0;
         sort(satisfaction.begin(),satisfaction.end());
         int n=satisfaction.size();
-        for(int i=0;i<n;i++){
-            int cnt=1;
-            int sum=0;
-           for(int j=i;j<n;j++){
-              sum+=cnt*satisfaction[j];
-              cnt++;
-           }
-           maxi=max(sum,maxi);
+        int postSum=0,cur=0,res=0;
+        for(int i=n-1; i>=0; i--){
+            postSum += satisfaction[i];
+            cur += postSum;
+            res = max(res, cur);
         }
-        return maxi;
+        return res;
     }
 };
