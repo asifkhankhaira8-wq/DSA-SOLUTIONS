@@ -26,8 +26,23 @@ long long fun(int i,int k,vector<vector<int>>& piles){
              prefix[i][j]=prefix[i][j-1]+piles[i][j];
             }
         }
-         dp.assign(n,vector<long long>(k+1,-1));
-         return fun(n-1,k,piles);
-
+         dp.assign(n,vector<long long>(k+1,0));
+        // return fun(n-1,k,piles);
+        for(int i=1;i<=k;i++){
+            dp[0][i]=prefix[0][min(i,(int)piles[0].size())-1];
+        }
+    for(int i=1;i<n;i++){
+      for(int j=1;j<=k;j++){
+       long long maxi=0;
+       for(int x = 0; x <= min(j, (int)piles[i].size()); x++) {
+         long long val = 0;
+         if(x > 0) val = prefix[i][x-1];
+         val += dp[i-1][j-x];
+         maxi = max(maxi, val);
+        }
+       dp[i][j]=maxi;
+            }
+        }
+        return dp[n-1][k];
     }
 };
